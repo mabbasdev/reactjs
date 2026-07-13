@@ -1,0 +1,151 @@
+/* Container Box */
+.job-card {
+    font-family: Roboto, sans-serif;
+    width: 380px;
+    background-color: #ffffff;
+    border-radius: 40px;
+    padding: 32px;
+    box-sizing: border-box;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    text-align: left !important;
+}
+
+/* Header styling */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+.logo-container {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px solid #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+.company-logo {
+    width: 70%;
+    object-fit: contain;
+    margin-top: 4px;
+}
+
+.save-btn {
+    background: transparent;
+    border: 1px solid #e4e4e7;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    color: #71717a;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+/* Body Styling */
+.card-body {
+    display: block;
+    text-align: left;
+    padding-bottom: 60px;
+}
+
+.company-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    justify-content: flex-start;
+    /* FIX */
+}
+
+.company-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #18181b;
+}
+
+.time-posted {
+    font-size: 0.8rem;
+    color: #a1a1aa;
+}
+
+.job-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #18181b;
+    margin: 0 0 16px 0;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    text-align: left;
+    /* FIX */
+}
+
+/* Tags Styling */
+.tags-container {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    justify-content: flex-start;
+}
+
+.tag {
+    background-color: #e4e4e7;
+    color: #27272a;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+/* Divider Line */
+.divider {
+    border: 0;
+    border-top: 1px solid #e4e4e7;
+    margin: 0 0 20px 0;
+}
+
+/* Footer Styling */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.salary-location {
+    text-align: left;
+}
+
+.salary {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #18181b;
+    margin-bottom: 2px;
+}
+
+.location {
+    font-size: 0.85rem;
+    color: #a1a1aa;
+}
+
+.apply-btn {
+    background-color: #18181b;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 24px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.apply-btn:hover {
+    background-color: #27272a;
+}
