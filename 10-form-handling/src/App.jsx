@@ -5,7 +5,7 @@ const App = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic here
-    console.log('Submitted Data:');
+    console.log('Form Submitted');
   };
 
   return (
