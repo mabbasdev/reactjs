@@ -33,24 +33,57 @@ const App = () => {
 
   // Building a Counter
 
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
 
-  function increaseCount() {
-    setCount(count+1)
-  }
-  function decreaseCount() {
-    setCount(count-1)
-  }
-  function resetCount() {
-    setCount(0)
+  // function increaseCount() {
+  //   setCount(count+1)
+  // }
+  // function decreaseCount() {
+  //   setCount(count-1)
+  // }
+  // function resetCount() {
+  //   setCount(0)
+
+  // }
+  // return (
+  //   <div>
+  //     <h1>{count}</h1>
+  //     <button onClick={increaseCount}>Increase</button>
+  //     <button onClick={decreaseCount}>Decrease</button>
+  //     <button onClick={resetCount}>Reset</button>
+  //   </div>
+  // )
+
+  // Objects
+  const [num, setNum] = useState({ user: "Abbas", age: 20 })
+
+  const btnClicked = () => {
+    const newNum = { ...num }
+    newNum.user = "Haris"
+    newNum.age = 25
+    console.log(num);
+    console.log(newNum);
+    // setNum(newNum)
+
+    setNum(prev => ({...prev, age: 142}))
+
 
   }
+
+  // Arrays
+  const [arr, setArr] = useState([10, 20, 30])
+  const btnArrClicked = () => {
+    const newArr = [...arr]
+    newArr.push(100)
+    setArr(newArr)
+  }
+
   return (
     <div>
-      <h1>{count}</h1>
-      <button onClick={increaseCount}>Increase</button>
-      <button onClick={decreaseCount}>Decrease</button>
-      <button onClick={resetCount}>Reset</button>
+      <h1>{num.user} {num.age}</h1>
+      <h1>{arr}</h1>
+      <button onClick={btnClicked}>Click</button>
+      <button onClick={btnArrClicked}>Click Arr</button>
     </div>
   )
 }
