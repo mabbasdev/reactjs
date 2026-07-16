@@ -1,0 +1,324 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const App = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const getData = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get("https://picsum.photos/v2/list?page=2&limit=12");
+      setData(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div style={styles.container}>
+      {/* Header / Hero Section */}
+      <header style={styles.header}>
+        <h1 style={styles.title}>Visual Canvas</h1>
+        <p style={styles.subtitle}>
+          A curated collection of stunning photography powered by the Picsum API.
+        </p>
+        <button 
+          onClick={getData} 
+          disabled={loading}
+          style={{
+            ...styles.button,
+            ...(loading ? styles.buttonDisabled : {})
+          }}
+        >
+          {loading ? 'Fetching Collection...' : data.length > 0 ? 'Refresh Gallery' : 'Explore Gallery'}
+        </button>
+      </header>
+
+      {/* Main Content Area */}
+      <main style={styles.main}>
+        {/* Loading Skeleton State */}
+        {loading && (
+          <div style={styles.grid}>
+            {[...Array(6)].map((_, i) => (
+              <div key={i} style={{ ...styles.card, ...styles.skeletonCard }}>
+                <div style={styles.skeletonImage} />
+                <div style={styles.content}>
+                  <div style={styles.skeletonTextTitle} />
+                  <div style={styles.skeletonTextSub} />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Empty State */}
+        {!loading && data.length === 0 && (
+          <div style={styles.emptyState}>
+            <div style={styles.emptyIcon}>📷</div>
+            <p style={styles.emptyText}>The gallery is currently empty. Click the button above to load photos.</p>
+          </div>
+        )}
+
+        {/* Beautiful Responsive Grid */}
+        {!loading && data.length > 0 && (
+          <div style={styles.grid}>
+            {data.map((elem) => (
+              <div key={elem.id} style={styles.card}>
+                <div style={styles.imageContainer}>
+                  <img
+                    src={elem.download_url}
+                    alt={`By ${elem.author}`}
+                    style={styles.image}
+                    loading="lazy"
+                  />
+                </div>
+                <div style={styles.content}>
+                  <div style={styles.meta}>
+                    <span style={styles.badge}>ID: {elem.id}</span>
+                    <span style={styles.dimensions}>
+                      {elem.width} × {elem.height}
+                    </span>
+                  </div>
+                  <h3 style={styles.author}>{elem.author}</h3>
+                  <div style={styles.links}>
+                    <a
+                      href={elem.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={styles.linkSecondary}
+                    >
+                      Source Link
+                    </a>
+                    <a
+                      href={elem.download_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={styles.linkPrimary}
+                    >
+                      Download
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </main>
+
+      <footer style={styles.footer}>
+        <p>© 2026 Visual Canvas. Images from Unsplash via Lorem Picsum.</p>
+      </footer>
+    </div>
+  );
+};
+
+// CSS-in-JS Styles with Modern UI details
+const styles = {
+  container: {
+    minHeight: '100vh',
+    backgroundColor: '#f8fafc',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+    color: '#0f172a',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  header: {
+    textAlign: 'center',
+    padding: '80px 24px 48px 24px',
+    backgroundColor: '#ffffff',
+    borderBottom: '1px solid #e2e8f0',
+  },
+  title: {
+    fontSize: '2.5rem',
+    fontWeight: '800',
+    letterSpacing: '-0.05em',
+    margin: '0 0 12px 0',
+    background: 'linear-gradient(135deg, #0f172a 0%, #2563eb 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+  },
+  subtitle: {
+    fontSize: '1.1rem',
+    color: '#475569',
+    maxWidth: '600px',
+    margin: '0 auto 32px auto',
+    lineHeight: '1.6',
+  },
+  button: {
+    backgroundColor: '#0f172a',
+    color: '#ffffff',
+    border: 'none',
+    padding: '14px 28px',
+    fontSize: '15px',
+    fontWeight: '600',
+    borderRadius: '30px',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+    boxShadow: '0 4px 14px rgba(15, 23, 42, 0.15)',
+    outline: 'none',
+  },
+  buttonDisabled: {
+    backgroundColor: '#94a3b8',
+    cursor: 'not-allowed',
+    boxShadow: 'none',
+  },
+  main: {
+    flex: '1',
+    maxWidth: '1200px',
+    width: '100%',
+    margin: '0 auto',
+    padding: '48px 24px',
+    boxSizing: 'border-box',
+  },
+  // Responsive Grid Layout utilizing CSS grid inside inline styles
+  grid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+    gap: '32px',
+    width: '100%',
+  },
+  card: {
+    backgroundColor: '#ffffff',
+    borderRadius: '16px',
+    overflow: 'hidden',
+    border: '1px solid #e2e8f0',
+    transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease',
+    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  imageContainer: {
+    width: '100%',
+    paddingTop: '66.6%', // 3:2 Aspect Ratio
+    position: 'relative',
+    backgroundColor: '#f1f5f9',
+    overflow: 'hidden',
+  },
+  image: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    transition: 'transform 0.5s ease',
+  },
+  content: {
+    padding: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    flexGrow: 1,
+  },
+  meta: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '10px',
+  },
+  badge: {
+    fontSize: '11px',
+    fontWeight: '700',
+    backgroundColor: '#f1f5f9',
+    color: '#475569',
+    padding: '2px 8px',
+    borderRadius: '12px',
+    textTransform: 'uppercase',
+  },
+  dimensions: {
+    fontSize: '11px',
+    color: '#64748b',
+    fontWeight: '500',
+  },
+  author: {
+    fontSize: '18px',
+    fontWeight: '700',
+    color: '#0f172a',
+    margin: '0 0 20px 0',
+    lineHeight: '1.4',
+    flexGrow: 1,
+  },
+  links: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '12px',
+    marginTop: 'auto',
+  },
+  linkPrimary: {
+    flex: '1',
+    textAlign: 'center',
+    fontSize: '13px',
+    fontWeight: '600',
+    textDecoration: 'none',
+    backgroundColor: '#2563eb',
+    color: '#ffffff',
+    padding: '10px 16px',
+    borderRadius: '8px',
+    transition: 'background-color 0.2s',
+  },
+  linkSecondary: {
+    flex: '1',
+    textAlign: 'center',
+    fontSize: '13px',
+    fontWeight: '600',
+    textDecoration: 'none',
+    color: '#475569',
+    border: '1px solid #cbd5e1',
+    padding: '9px 16px',
+    borderRadius: '8px',
+    transition: 'all 0.2s',
+  },
+  // Empty State Styles
+  emptyState: {
+    textAlign: 'center',
+    padding: '60px 24px',
+    backgroundColor: '#ffffff',
+    borderRadius: '16px',
+    border: '2px dashed #e2e8f0',
+  },
+  emptyIcon: {
+    fontSize: '48px',
+    marginBottom: '16px',
+  },
+  emptyText: {
+    color: '#64748b',
+    fontSize: '16px',
+    margin: 0,
+  },
+  // Loading Skeleton Styles
+  skeletonCard: {
+    pointerEvents: 'none',
+  },
+  skeletonImage: {
+    width: '100%',
+    height: '200px',
+    backgroundColor: '#e2e8f0',
+  },
+  skeletonTextTitle: {
+    width: '70%',
+    height: '18px',
+    backgroundColor: '#e2e8f0',
+    borderRadius: '4px',
+    marginBottom: '10px',
+  },
+  skeletonTextSub: {
+    width: '40%',
+    height: '14px',
+    backgroundColor: '#e2e8f0',
+    borderRadius: '4px',
+  },
+  footer: {
+    textAlign: 'center',
+    padding: '40px 24px',
+    backgroundColor: '#ffffff',
+    borderTop: '1px solid #e2e8f0',
+    color: '#64748b',
+    fontSize: '14px',
+  }
+};
+
+export default App;
