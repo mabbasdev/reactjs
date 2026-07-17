@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.Light {
+    background: #ccc !important;
+}
+
+.Dark {
+    background: #333 !important;
+}
