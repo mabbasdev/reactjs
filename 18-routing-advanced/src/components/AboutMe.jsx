@@ -6,7 +6,7 @@ const AboutMe = () => {
   return (
     <div className="flex flex-col md:flex-row gap-8 items-start">
       {/* Profile Photo Mock */}
-      <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-700 text-white flex-shrink-0 flex items-center justify-center text-4xl font-extrabold shadow-md">
+      <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-linear-to-tr from-blue-600 to-indigo-700 text-white shrink-0 flex items-center justify-center text-4xl font-extrabold shadow-md">
         DEV
       </div>
 

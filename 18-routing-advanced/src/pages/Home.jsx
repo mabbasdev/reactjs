@@ -33,7 +33,7 @@ const Home = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 flex-1">
                     {[...Array(limit)].map((_, i) => (
                         <div key={i} className="bg-white rounded-2xl overflow-hidden border border-slate-200 animate-pulse">
-                            <div className="aspect-[3/2] bg-slate-200 w-full" />
+                            <div className="aspect-3/2 bg-slate-200 w-full" />
                             <div className="p-5 space-y-3">
                                 <div className="h-4 bg-slate-200 rounded w-2/3" />
                                 <div className="h-3 bg-slate-200 rounded w-1/2" />
